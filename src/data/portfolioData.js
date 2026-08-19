@@ -15,7 +15,7 @@ export const portfolioData = {
       "AI & Machine Learning Explorer",
       "Computer Vision Enthusiast",
       "60+ LeetCode Problem Solver",
-      "Creative Tech Magician ✨"
+      "Agentic AI Certified Explorer ✨"
     ],
     socials: {
       github: "https://github.com/kaushalsinghto05",
@@ -301,31 +301,31 @@ export const portfolioData = {
 
   certifications: [
     {
-      id: "cert-1",
-      title: "Full-Stack Web Development with React & Node.js",
-      issuer: "Meta / Coursera (Placeholder)",
-      date: "2024",
-      skills: ["React.js", "Node.js", "REST APIs", "State Management"],
-      credentialUrl: "https://example.com/certificate-placeholder-1",
-      icon: "react"
-    },
-    {
-      id: "cert-2",
-      title: "Machine Learning & Deep Learning Fundamentals",
-      issuer: "DeepLearning.AI (Placeholder)",
-      date: "2024",
-      skills: ["Scikit-learn", "Neural Networks", "Data Modeling", "Computer Vision"],
-      credentialUrl: "https://example.com/certificate-placeholder-2",
+      id: "cert-oracle-ai",
+      title: "Agentic AI Certified Foundations Associate",
+      issuer: "Oracle University",
+      date: "Verified Credential",
+      skills: ["Agentic AI", "AI Agents", "LangChain", "OpenAI Agents SDK", "MCP Server", "OCI AI"],
+      credentialUrl: "https://catalog-education.oracle.com/pls/certview/sharebadge?id=5E7A03AEDCED04FC66736967E0AFB2099BF6F6D2B50C70A18A92EA707387766E",
       icon: "brain"
     },
     {
-      id: "cert-3",
-      title: "Data Structures & Algorithms in C++",
-      issuer: "LeetCode / HackerRank (Placeholder)",
-      date: "2023",
-      skills: ["Algorithms", "Data Structures", "Time Complexity", "C++"],
-      credentialUrl: "https://example.com/certificate-placeholder-3",
+      id: "cert-hackerrank",
+      title: "HackerRank Certified Developer (Skill Assessment)",
+      issuer: "HackerRank",
+      date: "Verified Credential",
+      skills: ["Problem Solving", "Algorithms", "Data Structures", "Code Optimization"],
+      credentialUrl: "https://www.hackerrank.com/certificates/0613df0c6c20",
       icon: "code"
+    },
+    {
+      id: "cert-fullstack",
+      title: "Full-Stack & Machine Learning Engineering Track",
+      issuer: "Practical Engineering Projects",
+      date: "2024",
+      skills: ["React.js", "Node.js", "Computer Vision (YOLO)", "Scikit-Learn", "REST APIs"],
+      credentialUrl: "https://github.com/kaushalsinghto05",
+      icon: "react"
     }
   ],
 

@@ -80,7 +80,7 @@ export const Certifications = () => {
         {/* Informative Note for User */}
         <div className="mt-8 text-center">
           <p className="text-xs font-mono text-slate-500">
-            💡 <span className="text-cyan-400 font-semibold">Note:</span> Replace placeholder certificate URLs and titles anytime directly in <code className="text-purple-300">src/data/portfolioData.js</code>.
+            🛡️ <span className="text-cyan-400 font-semibold">Verified Credentials:</span> Click any card above to view the official badge verification from Oracle University & HackerRank.
           </p>
         </div>
 
