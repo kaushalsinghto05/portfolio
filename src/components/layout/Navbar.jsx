@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiMenu, FiX, FiDownload, FiExternalLink } from 'react-icons/fi';
+import { FiMenu, FiX, FiDownload, FiVolume2, FiVolumeX } from 'react-icons/fi';
 import { portfolioData } from '../../data/portfolioData';
 import { ThemeToggle } from '../common/ThemeToggle';
 import { useActiveSection } from '../../hooks/useActiveSection';
+import { toggleAudioMute, getAudioMuteState, playClickSound, playHoverSound } from '../../utils/soundEffects';
 
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
 
   const sectionIds = portfolioData.navLinks.map((link) => link.href.replace('#', ''));
   const activeSection = useActiveSection(sectionIds);
@@ -20,8 +22,15 @@ export const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleAudioToggle = () => {
+    const muted = toggleAudioMute();
+    setIsMuted(muted);
+    if (!muted) playClickSound();
+  };
+
   const handleNavClick = (e, href) => {
     e.preventDefault();
+    playClickSound();
     const targetId = href.replace('#', '');
     const element = document.getElementById(targetId);
     if (element) {
@@ -43,6 +52,7 @@ export const Navbar = () => {
         <a
           href="#hero"
           onClick={(e) => handleNavClick(e, '#hero')}
+          onMouseEnter={playHoverSound}
           className="group flex items-center gap-2.5 focus:outline-none"
         >
           <div className="relative w-10 h-10 rounded-xl p-0.5 bg-gradient-to-tr from-cyan-400 via-purple-500 to-pink-500 shadow-[0_0_15px_rgba(6,182,212,0.4)] group-hover:scale-105 transition-transform duration-300">
@@ -71,6 +81,7 @@ export const Navbar = () => {
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
+                onMouseEnter={playHoverSound}
                 className={`relative px-3.5 py-1.5 text-xs font-medium tracking-wide transition-all duration-200 rounded-full ${
                   isActive
                     ? 'text-white font-semibold'
@@ -91,7 +102,21 @@ export const Navbar = () => {
         </nav>
 
         {/* Right CTA Actions */}
-        <div className="hidden sm:flex items-center gap-3">
+        <div className="hidden sm:flex items-center gap-2.5">
+          {/* Audio FX Toggle Button */}
+          <button
+            onClick={handleAudioToggle}
+            aria-label="Toggle Sound Effects"
+            className="p-2.5 rounded-xl border border-slate-700/50 dark:border-white/15 bg-slate-100/80 dark:bg-slate-900/80 backdrop-blur-md text-slate-700 dark:text-cyan-400 hover:scale-105 active:scale-95 transition-all duration-300 shadow-sm"
+            title={isMuted ? 'Unmute Sound Effects' : 'Mute Sound Effects'}
+          >
+            {isMuted ? (
+              <FiVolumeX className="w-4 h-4 text-slate-500" />
+            ) : (
+              <FiVolume2 className="w-4 h-4 text-cyan-400" />
+            )}
+          </button>
+
           <ThemeToggle />
 
           <a
@@ -99,6 +124,8 @@ export const Navbar = () => {
             target="_blank"
             rel="noopener noreferrer"
             download
+            onMouseEnter={playHoverSound}
+            onClick={playClickSound}
             className="group relative inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-wider text-slate-950 bg-gradient-to-r from-cyan-400 via-teal-300 to-cyan-400 bg-[length:200%_auto] hover:bg-[position:right_center] shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_25px_rgba(6,182,212,0.7)] transition-all duration-300 active:scale-95"
           >
             <FiDownload className="w-3.5 h-3.5 transition-transform group-hover:-translate-y-0.5" />
@@ -108,9 +135,21 @@ export const Navbar = () => {
 
         {/* Mobile menu button */}
         <div className="flex sm:hidden items-center gap-2">
-          <ThemeToggle />
           <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            onClick={handleAudioToggle}
+            aria-label="Toggle Sound Effects"
+            className="p-2 rounded-xl bg-slate-900/80 border border-white/10 text-slate-200"
+          >
+            {isMuted ? <FiVolumeX className="w-4 h-4 text-slate-500" /> : <FiVolume2 className="w-4 h-4 text-cyan-400" />}
+          </button>
+
+          <ThemeToggle />
+
+          <button
+            onClick={() => {
+              setMobileMenuOpen(!mobileMenuOpen);
+              playClickSound();
+            }}
             aria-label="Toggle mobile menu"
             className="p-2 rounded-xl bg-slate-900/80 border border-white/10 text-slate-200 hover:text-cyan-400"
           >
@@ -155,6 +194,7 @@ export const Navbar = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   download
+                  onClick={playClickSound}
                   className="flex items-center justify-center gap-2 w-full py-3 rounded-xl text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-cyan-400 to-purple-500 text-slate-950 shadow-[0_0_20px_rgba(6,182,212,0.4)]"
                 >
                   <FiDownload className="w-4 h-4" />

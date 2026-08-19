@@ -10,7 +10,9 @@ import {
 } from 'react-icons/fi';
 import { HiSparkles } from 'react-icons/hi2';
 import { SectionHeader } from '../common/SectionHeader';
+import { Skills3DCanvas } from '../3d/Skills3DCanvas';
 import { portfolioData } from '../../data/portfolioData';
+import { playHoverSound, playClickSound } from '../../utils/soundEffects';
 
 const categoryIcons = {
   code: <FiCode className="w-5 h-5" />,
@@ -24,11 +26,17 @@ const categoryIcons = {
 export const Skills = () => {
   const { categories } = portfolioData.skills;
   const [activeTab, setActiveTab] = useState('all');
+  const [show3DGalaxy, setShow3DGalaxy] = useState(true);
 
   const filteredCategories =
     activeTab === 'all'
       ? categories
       : categories.filter((c) => c.id === activeTab);
+
+  const handleTabChange = (tabId) => {
+    setActiveTab(tabId);
+    playClickSound();
+  };
 
   return (
     <section id="skills" className="py-20 md:py-28 relative">
@@ -42,10 +50,28 @@ export const Skills = () => {
           subtitle="A comprehensive toolkit across full-stack engineering, machine learning pipelines, and artificial intelligence."
         />
 
+        {/* 3D Tech Constellation Feature */}
+        <div className="mb-10">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-xs font-mono text-cyan-400 flex items-center gap-2">
+              <HiSparkles className="w-4 h-4 text-purple-400" />
+              <span>Interactive 3D Tech Orbit (Drag to rotate)</span>
+            </span>
+            <button
+              onClick={() => setShow3DGalaxy(!show3DGalaxy)}
+              className="text-[11px] font-mono text-slate-400 hover:text-cyan-300 underline"
+            >
+              {show3DGalaxy ? 'Hide 3D Galaxy' : 'Show 3D Galaxy'}
+            </button>
+          </div>
+          {show3DGalaxy && <Skills3DCanvas />}
+        </div>
+
         {/* Filter Pills */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
           <button
-            onClick={() => setActiveTab('all')}
+            onClick={() => handleTabChange('all')}
+            onMouseEnter={playHoverSound}
             className={`px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-200 ${
               activeTab === 'all'
                 ? 'bg-gradient-to-r from-cyan-500 to-purple-600 text-white shadow-[0_0_15px_rgba(6,182,212,0.4)]'
@@ -58,7 +84,8 @@ export const Skills = () => {
           {categories.map((cat) => (
             <button
               key={cat.id}
-              onClick={() => setActiveTab(cat.id)}
+              onClick={() => handleTabChange(cat.id)}
+              onMouseEnter={playHoverSound}
               className={`px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-200 ${
                 activeTab === cat.id
                   ? 'bg-gradient-to-r from-cyan-500 to-purple-600 text-white shadow-[0_0_15px_rgba(6,182,212,0.4)]'
@@ -79,6 +106,7 @@ export const Skills = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ delay: catIndex * 0.1, duration: 0.5 }}
+              onMouseEnter={playHoverSound}
               className="group rounded-3xl p-6 bg-slate-900/70 dark:bg-slate-900/80 border border-slate-800 dark:border-white/10 backdrop-blur-xl hover:border-cyan-500/40 hover:shadow-[0_0_30px_rgba(6,182,212,0.2)] transition-all duration-300 flex flex-col justify-between"
             >
               <div>

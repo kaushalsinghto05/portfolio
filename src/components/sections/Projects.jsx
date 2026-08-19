@@ -5,22 +5,24 @@ import confetti from 'canvas-confetti';
 import {
   FiGithub,
   FiExternalLink,
-  FiCode,
   FiCheckCircle,
-  FiLayers,
   FiMaximize2,
   FiX,
   FiCpu,
   FiShield,
-  FiGlobe
+  FiGlobe,
+  FiTerminal
 } from 'react-icons/fi';
 import { SectionHeader } from '../common/SectionHeader';
+import { InteractiveTerminal3D } from '../3d/InteractiveTerminal3D';
 import { portfolioData } from '../../data/portfolioData';
+import { playClickSound, playHoverSound, playSpellSound } from '../../utils/soundEffects';
 
 export const Projects = () => {
   const { projects } = portfolioData;
   const [filter, setFilter] = useState('All');
   const [selectedProject, setSelectedProject] = useState(null);
+  const [showTerminal, setShowTerminal] = useState(true);
 
   const filterTabs = [
     { label: 'All', count: projects.length },
@@ -37,13 +39,19 @@ export const Projects = () => {
     return true;
   });
 
+  const handleFilterChange = (tabLabel) => {
+    setFilter(tabLabel);
+    playClickSound();
+  };
+
   const handleOpenModal = (project) => {
     setSelectedProject(project);
+    playSpellSound();
     confetti({
-      particleCount: 40,
-      spread: 60,
+      particleCount: 45,
+      spread: 65,
       origin: { y: 0.8 },
-      colors: ['#00f2fe', '#9d4edd', '#f72585']
+      colors: ['#00f2fe', '#9d4edd', '#f72585', '#ffd166']
     });
   };
 
@@ -63,12 +71,30 @@ export const Projects = () => {
           subtitle="Explore production-style software platforms, machine learning architectures, and cybersecurity frameworks."
         />
 
+        {/* Interactive Holographic Developer Terminal Feature */}
+        <div className="mb-14">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-xs font-mono text-cyan-400 flex items-center gap-2">
+              <FiTerminal className="w-4 h-4 text-cyan-400" />
+              <span>Interactive 3D Developer Console (Try typing 'projects', 'skills', or 'magic')</span>
+            </span>
+            <button
+              onClick={() => setShowTerminal(!showTerminal)}
+              className="text-[11px] font-mono text-slate-400 hover:text-cyan-300 underline"
+            >
+              {showTerminal ? 'Hide Console' : 'Show Console'}
+            </button>
+          </div>
+          {showTerminal && <InteractiveTerminal3D />}
+        </div>
+
         {/* Filter Navigation Tabs */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
           {filterTabs.map((tab) => (
             <button
               key={tab.label}
-              onClick={() => setFilter(tab.label)}
+              onClick={() => handleFilterChange(tab.label)}
+              onMouseEnter={playHoverSound}
               className={`relative px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
                 filter === tab.label
                   ? 'text-slate-950 bg-gradient-to-r from-cyan-400 via-teal-300 to-purple-400 shadow-[0_0_20px_rgba(6,182,212,0.4)] scale-105'
@@ -85,7 +111,7 @@ export const Projects = () => {
           ))}
         </div>
 
-        {/* Projects Grid with Tilt */}
+        {/* Projects Grid with 3D Tilt */}
         <motion.div
           layout
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch"
@@ -102,19 +128,21 @@ export const Projects = () => {
                 className="h-full"
               >
                 <Tilt
-                  tiltMaxAngleX={8}
-                  tiltMaxAngleY={8}
+                  tiltMaxAngleX={9}
+                  tiltMaxAngleY={9}
                   perspective={1000}
                   scale={1.02}
                   transitionSpeed={800}
                   glareEnable={true}
-                  glareMaxOpacity={0.15}
+                  glareMaxOpacity={0.18}
                   glareColor="#00f2fe"
                   glarePosition="all"
                   className="h-full rounded-3xl"
                 >
-                  <div className="group h-full rounded-3xl bg-slate-900/70 dark:bg-slate-900/80 border border-slate-800 dark:border-white/10 backdrop-blur-xl hover:border-cyan-400/50 hover:shadow-[0_0_35px_rgba(6,182,212,0.25)] transition-all duration-300 flex flex-col justify-between overflow-hidden relative">
-                    
+                  <div
+                    onMouseEnter={playHoverSound}
+                    className="group h-full rounded-3xl bg-slate-900/70 dark:bg-slate-900/80 border border-slate-800 dark:border-white/10 backdrop-blur-xl hover:border-cyan-400/50 hover:shadow-[0_0_35px_rgba(6,182,212,0.25)] transition-all duration-300 flex flex-col justify-between overflow-hidden relative"
+                  >
                     {/* Top Decorative Gradient Accent */}
                     <div className={`h-2 w-full bg-gradient-to-r ${project.gradient}`} />
 
@@ -174,6 +202,7 @@ export const Projects = () => {
                         <div className="pt-4 border-t border-slate-800/80 dark:border-white/10 flex items-center justify-between gap-3">
                           <button
                             onClick={() => handleOpenModal(project)}
+                            onMouseEnter={playHoverSound}
                             className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-400 hover:text-cyan-300 transition-colors"
                           >
                             <FiMaximize2 className="w-3.5 h-3.5" />
@@ -185,6 +214,7 @@ export const Projects = () => {
                               href={project.github}
                               target="_blank"
                               rel="noopener noreferrer"
+                              onMouseEnter={playHoverSound}
                               aria-label="GitHub Repository"
                               className="p-2 rounded-xl bg-slate-800/80 border border-white/10 text-slate-300 hover:text-cyan-400 hover:border-cyan-400/40 transition-all duration-200"
                               title="View Code on GitHub"
@@ -196,6 +226,7 @@ export const Projects = () => {
                               href={project.live}
                               target="_blank"
                               rel="noopener noreferrer"
+                              onMouseEnter={playHoverSound}
                               aria-label="Project Details"
                               className="p-2 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 hover:bg-cyan-500/20 hover:border-cyan-400 transition-all duration-200"
                               title="Live / Profile Link"
@@ -237,7 +268,10 @@ export const Projects = () => {
                     </h3>
                   </div>
                   <button
-                    onClick={() => setSelectedProject(null)}
+                    onClick={() => {
+                      setSelectedProject(null);
+                      playClickSound();
+                    }}
                     className="p-2 rounded-xl bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 transition-colors"
                   >
                     <FiX className="w-5 h-5" />
