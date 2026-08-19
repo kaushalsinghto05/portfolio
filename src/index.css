@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-primary: #07080e;
+    --text-primary: #f8fafc;
+    --accent-glow: rgba(0, 242, 254, 0.4);
+  }
+
+  html.light {
+    --bg-primary: #f8fafc;
+    --text-primary: #0f172a;
+    --accent-glow: rgba(2, 132, 199, 0.25);
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Space Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+}
+
+/* Custom Cyberpunk & Magic Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #08090e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #00f2fe 0%, #9d4edd 50%, #f72585 100%);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ffd166 0%, #4cc9f0 50%, #f72585 100%);
+}
+
+/* Selection Color */
+::selection {
+  background-color: #00f2fe;
+  color: #050608;
+}
+
+/* Glassmorphism custom classes */
+.glass-panel {
+  background: rgba(18, 19, 28, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-light {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Magical Border Glowing Keyframe */
+@keyframes magicBorderGlow {
+  0%, 100% {
+    border-color: rgba(0, 242, 254, 0.4);
+    box-shadow: 0 0 20px rgba(0, 242, 254, 0.25);
+  }
+  33% {
+    border-color: rgba(157, 78, 221, 0.5);
+    box-shadow: 0 0 25px rgba(157, 78, 221, 0.3);
+  }
+  66% {
+    border-color: rgba(247, 37, 133, 0.4);
+    box-shadow: 0 0 20px rgba(247, 37, 133, 0.25);
+  }
+}
+
+.magic-glow-box {
+  animation: magicBorderGlow 6s ease-in-out infinite;
+}
+
+/* Shimmer animated effect */
+@keyframes shimmerAnim {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer-text {
+  background: linear-gradient(90deg, #00f2fe 0%, #ffffff 50%, #00f2fe 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmerAnim 4s linear infinite;
+}
+
+/* Lenis Smooth Scroll Configuration */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}

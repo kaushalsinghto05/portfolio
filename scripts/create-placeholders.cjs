@@ -1,0 +1,56 @@
+const fs = require('fs');
+const path = require('path');
+
+const assetsDir = path.join(__dirname, '..', 'public', 'assets');
+if (!fs.existsSync(assetsDir)) {
+  fs.mkdirSync(assetsDir, { recursive: true });
+}
+
+// Minimal valid 1x1 or sample JPEG
+// A 1x1 pixel grey JPEG header
+const minimalJpgBase64 = '/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=';
+fs.writeFileSync(path.join(assetsDir, 'profile.jpg'), Buffer.from(minimalJpgBase64, 'base64'));
+
+// Minimal valid PDF
+const minimalPdf = `%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 110 >>
+stream
+BT
+/F1 24 Tf
+100 700 Td
+(Kaushal Singh - Full-Stack & AI/ML Developer Resume) Tj
+0 -40 Td
+/F1 14 Tf
+(Contact: kaushalsinghoksi.c@gmail.com | +91-9005346561) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000010 00000 n 
+0000000060 00000 n 
+0000000117 00000 n 
+0000000227 00000 n 
+0000000388 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+457
+%%EOF`;
+
+fs.writeFileSync(path.join(assetsDir, 'resume.pdf'), minimalPdf);
+console.log('Placeholders created successfully!');
