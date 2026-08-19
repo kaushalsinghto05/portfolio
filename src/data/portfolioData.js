@@ -301,15 +301,6 @@ export const portfolioData = {
 
   certifications: [
     {
-      id: "cert-oracle-ai",
-      title: "Agentic AI Certified Foundations Associate",
-      issuer: "Oracle University",
-      date: "Verified Credential",
-      skills: ["Agentic AI", "AI Agents", "LangChain", "OpenAI Agents SDK", "MCP Server", "OCI AI"],
-      credentialUrl: "https://catalog-education.oracle.com/pls/certview/sharebadge?id=5E7A03AEDCED04FC66736967E0AFB2099BF6F6D2B50C70A18A92EA707387766E",
-      icon: "brain"
-    },
-    {
       id: "cert-hackerrank",
       title: "HackerRank Certified Developer (Skill Assessment)",
       issuer: "HackerRank",
@@ -319,13 +310,13 @@ export const portfolioData = {
       icon: "code"
     },
     {
-      id: "cert-fullstack",
-      title: "Full-Stack & Machine Learning Engineering Track",
-      issuer: "Practical Engineering Projects",
-      date: "2024",
-      skills: ["React.js", "Node.js", "Computer Vision (YOLO)", "Scikit-Learn", "REST APIs"],
-      credentialUrl: "https://github.com/kaushalsinghto05",
-      icon: "react"
+      id: "cert-oracle-ai",
+      title: "Agentic AI Certified Foundations Associate",
+      issuer: "Oracle University",
+      date: "Verified Credential",
+      skills: ["Agentic AI", "AI Agents", "LangChain", "OpenAI Agents SDK", "MCP Server", "OCI AI"],
+      credentialUrl: "https://catalog-education.oracle.com/pls/certview/sharebadge?id=5E7A03AEDCED04FC66736967E0AFB2099BF6F6D2B50C70A18A92EA707387766E",
+      icon: "brain"
     }
   ],
 
